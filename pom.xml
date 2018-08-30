@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cn.bromine0x23.zabbix</groupId>
+	<artifactId>zabbix-build</artifactId>
+	<version>3.4.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>zabbix-sender</module>
+		<module>zabbix-protocol</module>
+	</modules>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<logback.version>1.2.3</logback.version>
+		<lombok.version>1.18.2</lombok.version>
+		<jackson.version>2.9.6</jackson.version>
+		<junit.version>4.12</junit.version>
+		<netty.version>4.1.28.Final</netty.version>
+		<slf4j.version>1.7.25</slf4j.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>cn.bromine0x23.zabbix</groupId>
+				<artifactId>zabbix-protocol</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.bromine0x23.zabbix</groupId>
+				<artifactId>zabbix-sender</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/junit/junit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-access</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom -->
+			<dependency>
+				<groupId>com.fasterxml.jackson</groupId>
+				<artifactId>jackson-bom</artifactId>
+				<version>${jackson.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/io.netty/netty-bom -->
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-bom</artifactId>
+				<version>${netty.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>
