@@ -19,14 +19,14 @@ public abstract class ZabbixSenderTest {
 	protected void test(ZabbixSender sender) throws Exception {
 		ZabbixSenderResponse response;
 
-		response = sender.send(ZabbixSenderRequest.builder().datum("130.54.3.232", "java.test", "test").build());
+		response = sender.send(ZabbixSenderRequest.builder().datum("127.0.0.1", "java.test", "test").build());
 		assertNotNull(response);
 
 		response = sender.send(
 			ZabbixSenderRequest.builder()
-				.datum("130.54.3.232", "java.test.0", "test0")
-				.datum("130.54.3.232", "java.test.1", "test1")
-				.datum("130.54.3.232", "java.test.2", "test2")
+				.datum("127.0.0.1", "java.test.0", "test0")
+				.datum("127.0.0.1", "java.test.1", "test1")
+				.datum("127.0.0.1", "java.test.2", "test2")
 				.build()
 		);
 		assertNotNull(response);
