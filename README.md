@@ -1,12 +1,18 @@
 # Zabbix Java
 
-##
+## 模块
+
+* [zabbix-build](.) 构建控制
+* [zabbix-protocol](zabbix-protocol) 协议基础
+* [zabbix-sender](zabbix-sender) Sender实现
+
+### 一般用法
 
 ```java
 public class ZabbixSenderExample {
 	
 	public static void main(String[] arguments) {
-		ZabbixSender sender = ZabbixSender.socket("132.102.99.115");
+		ZabbixSender sender = ZabbixSender.create("132.102.99.115");
 		
 		ZabbixSenderResponse response; 
 		
@@ -23,6 +29,6 @@ public class ZabbixSenderExample {
 		);
 		System.out.println(response);
 	}
-	
 }
 ```
+
