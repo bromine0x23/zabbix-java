@@ -18,8 +18,14 @@ public interface ZabbixSender {
 
 	Duration DEFAULT_TIMEOUT = Duration.ofSeconds(3);
 
+	/**
+	 * @return Zabbix服务器地址
+	 */
 	String getHost();
 
+	/**
+	 * @return Zabbix服务器（主动模式）端口
+	 */
 	int getPort();
 
 	/**
@@ -34,6 +40,14 @@ public interface ZabbixSender {
 
 	default ZabbixSenderResponse send(ZabbixSenderRequest request) throws Exception {
 		return send(request, DEFAULT_TIMEOUT);
+	}
+
+	static ZabbixSender create(String host) {
+		return socket(host);
+	}
+
+	static ZabbixSender create(String host, int port) {
+		return socket(host, port);
 	}
 
 	static ZabbixSender socket(String host) {
