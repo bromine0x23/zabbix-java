@@ -1,5 +1,6 @@
 package cn.bromine0x23.zabbix.sender.impl;
 
+import cn.bromine0x23.zabbix.protocol.netty.ZabbixFrameCodec;
 import cn.bromine0x23.zabbix.protocol.netty.ZabbixFrameDecoder;
 import cn.bromine0x23.zabbix.protocol.netty.ZabbixFrameEncoder;
 import cn.bromine0x23.zabbix.protocol.netty.ZabbixRequestEncoder;
@@ -94,11 +95,10 @@ public class NettyZabbixSender implements ZabbixSender {
 				@Override
 				protected void initChannel(SocketChannel channel) {
 					channel.pipeline()
-						.addLast(new LoggingHandler(LogLevel.TRACE))
-						.addLast(new ZabbixFrameEncoder())
-						.addLast(new ZabbixRequestEncoder(objectMapper))
-						.addLast(new ZabbixFrameDecoder())
-						.addLast(new ZabbixResponseDecoder<>(objectMapper, ZabbixSenderResponse.class))
+						.addLast(new LoggingHandler(LogLevel.DEBUG))
+						.addLast(new ZabbixFrameCodec())
+						.addLast(new ZabbixRequestEncoder(objectMapper.writer()))
+						.addLast(new ZabbixResponseDecoder<>(objectMapper.readerFor(ZabbixSenderResponse.class)))
 					;
 				}
 			});

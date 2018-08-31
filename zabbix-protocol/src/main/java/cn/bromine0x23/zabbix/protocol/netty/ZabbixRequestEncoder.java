@@ -1,7 +1,7 @@
 package cn.bromine0x23.zabbix.protocol.netty;
 
 import cn.bromine0x23.zabbix.protocol.domain.ZabbixRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -13,14 +13,14 @@ import io.netty.handler.codec.MessageToByteEncoder;
  */
 public class ZabbixRequestEncoder extends MessageToByteEncoder<ZabbixRequest> {
 
-	private ObjectMapper objectMapper;
+	private ObjectWriter objectWriter;
 
-	public ZabbixRequestEncoder(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
+	public ZabbixRequestEncoder(ObjectWriter objectWriter) {
+		this.objectWriter = objectWriter;
 	}
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, ZabbixRequest request, ByteBuf out) throws Exception {
-		out.writeBytes(objectMapper.writeValueAsBytes(request));
+	protected void encode(ChannelHandlerContext context, ZabbixRequest request, ByteBuf out) throws Exception {
+		out.writeBytes(objectWriter.writeValueAsBytes(request));
 	}
 }
