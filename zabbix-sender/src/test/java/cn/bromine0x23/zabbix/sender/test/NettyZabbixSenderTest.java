@@ -2,12 +2,11 @@ package cn.bromine0x23.zabbix.sender.test;
 
 import cn.bromine0x23.zabbix.sender.ZabbixSender;
 import cn.bromine0x23.zabbix.sender.impl.NettyZabbixSender;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 
 /**
  * Created on 18/8/30.
@@ -15,15 +14,17 @@ import static org.junit.Assert.*;
  * @author <a href="mailto:bromine0x23@163.com">Bromine0x23</a>
  */
 @RunWith(JUnit4.class)
-public class NettyZabbixSenderTest extends ZabbixSenderTest {
+public class NettyZabbixSenderTest extends AbstractZabbixSenderTest {
 
 	@Test
 	public void test() throws Exception {
-		ZabbixSender sender = ZabbixSender.netty("132.102.99.115");
+		ObjectMapper objectMapper = new ObjectMapper();
 
-		assertThat(sender, instanceOf(NettyZabbixSender.class));
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-		super.test(sender);
+		ZabbixSender sender = NettyZabbixSender.builder().host("132.102.99.115").objectMapper(objectMapper).build();
+
+		doTest(sender);
 	}
 
 }
