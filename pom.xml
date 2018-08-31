@@ -6,8 +6,24 @@
 
 	<groupId>cn.bromine0x23.zabbix</groupId>
 	<artifactId>zabbix-build</artifactId>
-	<version>3.4.0-SNAPSHOT</version>
+	<version>3.4.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+
+	<developers>
+		<developer>
+			<id>Bromine0x23</id>
+			<name>Bromine0x23</name>
+			<email>bromine0x23@163.com</email>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>WTFPL, Version 2</name>
+			<url>http://www.wtfpl.net/txt/copying</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<modules>
 		<module>zabbix-sender</module>
@@ -28,6 +44,9 @@
 		<junit.version>4.12</junit.version>
 		<netty.version>4.1.28.Final</netty.version>
 		<slf4j.version>1.7.25</slf4j.version>
+
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -99,5 +118,57 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>distribution</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<inherited>true</inherited>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
