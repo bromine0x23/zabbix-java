@@ -5,28 +5,39 @@
 * [zabbix-build](.) 构建控制
 * [zabbix-protocol](zabbix-protocol) 协议基础
 * [zabbix-sender](zabbix-sender) Sender实现
+* [zabbix-autoconfigure](zabbix-autoconfigure) Spring Boot 自动配置
+* [zabbix-bom](zabbix-bom) Bill of materials (BOM)
 
 ### 一般用法
 
 ```java
+import cn.bromine0x23.zabbix.sender.ZabbixSender;
+import cn.bromine0x23.zabbix.sender.ZabbixSenderResponse;
+
 public class ZabbixSenderExample {
-	
+
+	private static final String SERVER_HOST = "132.102.99.115"; // Zabbix服务器地址
+
+	private static final String HOST = "example"; // 主机名
+
 	public static void main(String[] arguments) {
-		ZabbixSender sender = ZabbixSender.create("132.102.99.115");
-		
+
+		ZabbixSender sender = ZabbixSender.create(SERVER_HOST, HOST);
+
 		ZabbixSenderResponse response; 
-		
-		response = sender.send(ZabbixSenderRequest.builder().datum("127.0.0.1", "java.test", "test").build());
-		
+
+		response = sender.send(sender.requestBuilder().datum("java.test", "test").build());
+
 		System.out.println(response);
-		
+
 		response = sender.send(
-			ZabbixSenderRequest.builder()
-				.datum("127.0.0.1", "java.test.0", "test0")
-				.datum("127.0.0.1", "java.test.1", "test1")
-				.datum("127.0.0.1", "java.test.2", "test2")
+			sender.requestBuilder()
+				.datum("java.test.0", "test0")
+				.datum("java.test.1", "test1")
+				.datum("java.test.2", "test2")
 				.build()
 		);
+
 		System.out.println(response);
 	}
 }
