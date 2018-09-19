@@ -6,6 +6,7 @@
 * [zabbix-protocol](zabbix-protocol) 协议基础
 * [zabbix-sender](zabbix-sender) Sender实现
 * [zabbix-spring-boot-autoconfigure](zabbix-spring-boot-autoconfigure) Spring Boot 自动配置
+* [zabbix-spring-boot-starter](zabbix-spring-boot-starter) Spring Boot Starter
 * [zabbix-bom](zabbix-bom) Bill of materials (BOM)
 
 ### 一般用法
