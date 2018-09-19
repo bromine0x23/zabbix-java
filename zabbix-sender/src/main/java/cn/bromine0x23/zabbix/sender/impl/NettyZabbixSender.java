@@ -1,11 +1,8 @@
 package cn.bromine0x23.zabbix.sender.impl;
 
 import cn.bromine0x23.zabbix.protocol.netty.ZabbixFrameCodec;
-import cn.bromine0x23.zabbix.protocol.netty.ZabbixFrameDecoder;
-import cn.bromine0x23.zabbix.protocol.netty.ZabbixFrameEncoder;
 import cn.bromine0x23.zabbix.protocol.netty.ZabbixRequestEncoder;
 import cn.bromine0x23.zabbix.protocol.netty.ZabbixResponseDecoder;
-import cn.bromine0x23.zabbix.sender.ZabbixSender;
 import cn.bromine0x23.zabbix.sender.domain.ZabbixSenderRequest;
 import cn.bromine0x23.zabbix.sender.domain.ZabbixSenderResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,15 +18,13 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
+import java.util.Optional;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
-
-import static cn.bromine0x23.zabbix.sender.ZabbixSenderConstants.*;
 
 /**
  * Zabbix Sender Netty实现
@@ -37,32 +32,22 @@ import static cn.bromine0x23.zabbix.sender.ZabbixSenderConstants.*;
  * @author <a href="mailto:bromine0x23@163.com">Bromine0x23</a>
  */
 @Slf4j
-public class NettyZabbixSender implements ZabbixSender {
-
-	@Getter
-	private final String host;
-
-	@Getter
-	private final int port;
-
-	private final ObjectMapper objectMapper;
+public class NettyZabbixSender extends AbstractZabbixSender {
 
 	private final EventLoopGroup workerGroup;
 
 	private final Bootstrap bootstrap;
 
 	private NettyZabbixSender(
-		String host, int port, ObjectMapper objectMapper, EventLoopGroup workerGroup
+		String serverHost, int serverPort, String defaultHost, ObjectMapper objectMapper, EventLoopGroup workerGroup
 	) {
-		this.host = host;
-		this.port = port;
-		this.objectMapper = objectMapper;
+		super(serverHost, serverPort, defaultHost, objectMapper);
 		this.workerGroup = workerGroup;
 		this.bootstrap = createBootstrap();
 	}
 
 	public ZabbixSenderResponse send(ZabbixSenderRequest request, Duration timeout) throws InterruptedException {
-		ChannelFuture channelFuture = bootstrap.connect(host, port);
+		ChannelFuture channelFuture = bootstrap.connect(getServerHost(), getServerPort());
 
 		if (timeout == null) {
 			channelFuture.await();
@@ -97,8 +82,8 @@ public class NettyZabbixSender implements ZabbixSender {
 					channel.pipeline()
 						.addLast(new LoggingHandler(LogLevel.DEBUG))
 						.addLast(new ZabbixFrameCodec())
-						.addLast(new ZabbixRequestEncoder(objectMapper.writer()))
-						.addLast(new ZabbixResponseDecoder<>(objectMapper.readerFor(ZabbixSenderResponse.class)))
+						.addLast(new ZabbixRequestEncoder(getObjectMapper().writer()))
+						.addLast(new ZabbixResponseDecoder<>(getObjectMapper().readerFor(ZabbixSenderResponse.class)))
 					;
 				}
 			});
@@ -125,45 +110,26 @@ public class NettyZabbixSender implements ZabbixSender {
 		}
 	}
 
-	public static class Builder {
-
-		private String host;
-
-		private int port = DEFAULT_ACTIVE_PORT;
-
-		private ObjectMapper objectMapper;
+	public static class Builder extends AbstractZabbixSender.Builder<Builder, NettyZabbixSender> {
 
 		private EventLoopGroup workerGroup;
-
-		public Builder host(String host) {
-			this.host = host;
-			return this;
-		}
-
-		public Builder port(int port) {
-			this.port = port;
-			return this;
-		}
-
-		public Builder objectMapper(ObjectMapper objectMapper) {
-			this.objectMapper = objectMapper;
-			return this;
-		}
 
 		public Builder workerGroup(EventLoopGroup workerGroup) {
 			this.workerGroup = workerGroup;
 			return this;
 		}
 
+		@Override
 		public NettyZabbixSender build() {
-			if (host == null) {
-				throw new IllegalArgumentException("`host` cannot be null");
+			if (getServerHost() == null) {
+				throw new IllegalArgumentException("`serverHost` cannot be null");
 			}
 			return new NettyZabbixSender(
-				host,
-				port,
-				objectMapper == null ? new ObjectMapper() : objectMapper,
-				workerGroup == null ? new NioEventLoopGroup() : workerGroup
+				getServerHost(),
+				getServerPort(),
+				getDefaultHost(),
+				Optional.ofNullable(getObjectMapper()).orElseGet(ObjectMapper::new),
+				Optional.ofNullable(workerGroup).orElseGet(NioEventLoopGroup::new)
 			);
 		}
 	}

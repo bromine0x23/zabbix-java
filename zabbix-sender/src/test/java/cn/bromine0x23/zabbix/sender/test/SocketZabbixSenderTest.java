@@ -17,13 +17,13 @@ import org.junit.runners.JUnit4;
 public class SocketZabbixSenderTest extends AbstractZabbixSenderTest {
 
 	@Test
-	public void test() throws Exception {
+	public void testSend() throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-		ZabbixSender sender = SocketZabbixSender.builder().host("132.102.99.115").objectMapper(objectMapper).build();
+		ZabbixSender sender = SocketZabbixSender.builder().serverHost("132.102.99.115").objectMapper(objectMapper).build();
 
-		doTest(sender);
+		doTestSend(sender);
 	}
 }

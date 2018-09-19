@@ -21,12 +21,23 @@ public interface ZabbixSender {
 	/**
 	 * @return Zabbix服务器地址
 	 */
-	String getHost();
+	String getServerHost();
 
 	/**
 	 * @return Zabbix服务器（主动模式）端口
 	 */
-	int getPort();
+	int getServerPort();
+
+	/**
+	 * @return 默认主机名
+	 */
+	default String getDefaultHost() {
+		return null;
+	}
+
+	default ZabbixSenderRequest.Builder requestBuilder() {
+		return ZabbixSenderRequest.builder();
+	}
 
 	/**
 	 * 发送数据
@@ -42,27 +53,43 @@ public interface ZabbixSender {
 		return send(request, DEFAULT_TIMEOUT);
 	}
 
-	static ZabbixSender create(String host) {
-		return socket(host);
+	static ZabbixSender create(String serverHost) {
+		return socket(serverHost);
 	}
 
-	static ZabbixSender create(String host, int port) {
-		return socket(host, port);
+	static ZabbixSender create(String serverHost, int serverPort) {
+		return socket(serverHost, serverPort);
 	}
 
-	static ZabbixSender socket(String host) {
-		return socket(host, DEFAULT_ACTIVE_PORT);
+	static ZabbixSender socket(String serverHost) {
+		return socket(serverHost, DEFAULT_ACTIVE_PORT);
 	}
 
-	static ZabbixSender socket(String host, int port) {
-		return SocketZabbixSender.builder().host(host).port(port).build();
+	static ZabbixSender socket(String serverHost, int serverPort) {
+		return socket(serverHost, serverPort, null);
 	}
 
-	static ZabbixSender netty(String host) {
-		return netty(host, DEFAULT_ACTIVE_PORT);
+	static ZabbixSender socket(String serverHost, int serverPort, String defaultHost) {
+		return SocketZabbixSender.builder()
+			.serverHost(serverHost)
+			.serverPort(serverPort)
+			.defaultHost(defaultHost)
+			.build();
 	}
 
-	static ZabbixSender netty(String host, int port) {
-		return NettyZabbixSender.builder().host(host).port(port).build();
+	static ZabbixSender netty(String serverHost) {
+		return netty(serverHost, DEFAULT_ACTIVE_PORT);
+	}
+
+	static ZabbixSender netty(String serverHost, int serverPort) {
+		return netty(serverHost, serverPort, null);
+	}
+
+	static ZabbixSender netty(String serverHost, int serverPort, String defaultHost) {
+		return NettyZabbixSender.builder()
+			.serverHost(serverHost)
+			.serverPort(serverPort)
+			.defaultHost(defaultHost)
+			.build();
 	}
 }

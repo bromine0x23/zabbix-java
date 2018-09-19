@@ -2,7 +2,6 @@ package cn.bromine0x23.zabbix.sender.domain;
 
 import cn.bromine0x23.zabbix.protocol.domain.ZabbixRequest;
 import cn.bromine0x23.zabbix.sender.ZabbixSenderConstants;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -34,6 +33,10 @@ public class ZabbixSenderRequest extends ZabbixRequest<ZabbixSenderRequest.Paylo
 		return new Builder();
 	}
 
+	public static Builder builder(String defaultHost) {
+		return new Builder(defaultHost);
+	}
+
 	@Value(staticConstructor = "of")
 	public static class Payload {
 
@@ -60,16 +63,22 @@ public class ZabbixSenderRequest extends ZabbixRequest<ZabbixSenderRequest.Paylo
 		private String value;
 
 		@JsonProperty("clock")
-		@JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
-		private Instant timestamp;
+		private Long timestamp;
 	}
 
 	@ToString
 	public static class Builder {
 
+		private final String defaultHost;
+
 		private List<Datum> data = new ArrayList<>();
 
 		private Builder() {
+			this("127.0.0.1");
+		}
+
+		private Builder(String defaultHost) {
+			this.defaultHost = defaultHost;
 		}
 
 		public Builder datum(Datum datum) {
@@ -77,13 +86,20 @@ public class ZabbixSenderRequest extends ZabbixRequest<ZabbixSenderRequest.Paylo
 			return this;
 		}
 
-		public Builder datum(String host, String key, String value) {
-			return datum(host, key, value, Instant.now());
+		public Builder datum(String key, String value) {
+			return this.datum(defaultHost, key, value);
 		}
 
+		public Builder datum(String key, String value, Instant timestamp) {
+			return this.datum(defaultHost, key, value, timestamp);
+		}
+
+		public Builder datum(String host, String key, String value) {
+			return this.datum(host, key, value, Instant.now());
+		}
 
 		public Builder datum(String host, String key, String value, Instant timestamp) {
-			return datum(Datum.of(host, key, value, timestamp));
+			return this.datum(Datum.of(host, key, value, timestamp.getEpochSecond()));
 		}
 
 		public Builder data(Datum... data) {

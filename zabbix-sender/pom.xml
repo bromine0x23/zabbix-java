@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<scope>provided</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
@@ -51,5 +51,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 </project>

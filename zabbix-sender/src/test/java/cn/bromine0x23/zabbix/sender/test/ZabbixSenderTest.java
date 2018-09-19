@@ -1,48 +1,70 @@
 package cn.bromine0x23.zabbix.sender.test;
 
 import cn.bromine0x23.zabbix.sender.ZabbixSender;
-import cn.bromine0x23.zabbix.sender.domain.ZabbixSenderRequest;
-import cn.bromine0x23.zabbix.sender.domain.ZabbixSenderResponse;
+import cn.bromine0x23.zabbix.sender.ZabbixSenderConstants;
 import cn.bromine0x23.zabbix.sender.impl.NettyZabbixSender;
 import cn.bromine0x23.zabbix.sender.impl.SocketZabbixSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 /**
- * Created on 18/8/30.
+ * ZabbixSender 测试
  *
  * @author <a href="mailto:bromine0x23@163.com">Bromine0x23</a>
  */
 @RunWith(JUnit4.class)
-public class ZabbixSenderTest extends AbstractZabbixSenderTest {
+public class ZabbixSenderTest {
 
 	@Test
-	public void test() throws Exception {
-		ZabbixSender sender = ZabbixSender.create("132.102.99.115");
-
-		doTest(sender);
+	public void testConstruct() {
+		String serverHost = "104.24.103.152";
+		int serverPort = 20051;
+		{
+			ZabbixSender sender = ZabbixSender.create(serverHost);
+			assertEquals(serverHost, sender.getServerHost());
+			assertEquals(ZabbixSenderConstants.DEFAULT_ACTIVE_PORT, sender.getServerPort());
+		} {
+			ZabbixSender sender = ZabbixSender.create(serverHost, serverPort);
+			assertEquals(serverHost, sender.getServerHost());
+			assertEquals(serverPort, sender.getServerPort());
+		}
 	}
 
 	@Test
-	public void testSocket() throws Exception {
-		ZabbixSender sender = ZabbixSender.socket("132.102.99.115");
-
-		assertThat(sender, instanceOf(SocketZabbixSender.class));
-
-		doTest(sender);
+	public void testSocketConstruct() {
+		String serverHost = "104.24.103.152";
+		int serverPort = 20051;
+		{
+			ZabbixSender sender = ZabbixSender.socket(serverHost);
+			assertEquals(serverHost, sender.getServerHost());
+			assertEquals(ZabbixSenderConstants.DEFAULT_ACTIVE_PORT, sender.getServerPort());
+			assertThat(sender, instanceOf(SocketZabbixSender.class));
+		} {
+			ZabbixSender sender = ZabbixSender.socket(serverHost, serverPort);
+			assertEquals(serverHost, sender.getServerHost());
+			assertEquals(serverPort, sender.getServerPort());
+			assertThat(sender, instanceOf(SocketZabbixSender.class));
+		}
 	}
 
 	@Test
-	public void testNetty() throws Exception {
-		ZabbixSender sender = ZabbixSender.netty("132.102.99.115");
-
-		assertThat(sender, instanceOf(NettyZabbixSender.class));
-
-		doTest(sender);
+	public void testNettyConstruct() {
+		String serverHost = "104.24.103.152";
+		int serverPort = 20051;
+		{
+			ZabbixSender sender = ZabbixSender.netty(serverHost);
+			assertEquals(serverHost, sender.getServerHost());
+			assertEquals(ZabbixSenderConstants.DEFAULT_ACTIVE_PORT, sender.getServerPort());
+			assertThat(sender, instanceOf(NettyZabbixSender.class));
+		} {
+			ZabbixSender sender = ZabbixSender.netty(serverHost, serverPort);
+			assertEquals(serverHost, sender.getServerHost());
+			assertEquals(serverPort, sender.getServerPort());
+			assertThat(sender, instanceOf(NettyZabbixSender.class));
+		}
 	}
-
 }

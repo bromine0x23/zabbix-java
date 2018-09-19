@@ -17,14 +17,14 @@ import org.junit.runners.JUnit4;
 public class NettyZabbixSenderTest extends AbstractZabbixSenderTest {
 
 	@Test
-	public void test() throws Exception {
+	public void testSend() throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-		ZabbixSender sender = NettyZabbixSender.builder().host("132.102.99.115").objectMapper(objectMapper).build();
+		ZabbixSender sender = NettyZabbixSender.builder().serverHost("132.102.99.115").objectMapper(objectMapper).build();
 
-		doTest(sender);
+		doTestSend(sender);
 	}
 
 }
