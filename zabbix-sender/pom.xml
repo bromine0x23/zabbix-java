@@ -7,11 +7,14 @@
 	<parent>
 		<groupId>cn.bromine0x23.zabbix</groupId>
 		<artifactId>zabbix-build</artifactId>
-		<version>3.4.0.0-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>zabbix-sender</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Zabbix Sender</name>
 
 	<dependencies>
 		<dependency>
