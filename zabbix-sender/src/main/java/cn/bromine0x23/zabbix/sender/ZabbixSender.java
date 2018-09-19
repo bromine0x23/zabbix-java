@@ -61,12 +61,24 @@ public interface ZabbixSender {
 		return socket(serverHost, serverPort);
 	}
 
+	static ZabbixSender create(String serverHost, String defaultHost) {
+		return socket(serverHost, defaultHost);
+	}
+
+	static ZabbixSender create(String serverHost, int serverPort, String defaultHost) {
+		return socket(serverHost, serverPort, defaultHost);
+	}
+
 	static ZabbixSender socket(String serverHost) {
 		return socket(serverHost, DEFAULT_ACTIVE_PORT);
 	}
 
 	static ZabbixSender socket(String serverHost, int serverPort) {
 		return socket(serverHost, serverPort, null);
+	}
+
+	static ZabbixSender socket(String serverHost, String defaultHost) {
+		return socket(serverHost, DEFAULT_ACTIVE_PORT, defaultHost);
 	}
 
 	static ZabbixSender socket(String serverHost, int serverPort, String defaultHost) {
@@ -83,6 +95,10 @@ public interface ZabbixSender {
 
 	static ZabbixSender netty(String serverHost, int serverPort) {
 		return netty(serverHost, serverPort, null);
+	}
+
+	static ZabbixSender netty(String serverHost, String defaultHost) {
+		return netty(serverHost, DEFAULT_ACTIVE_PORT, defaultHost);
 	}
 
 	static ZabbixSender netty(String serverHost, int serverPort, String defaultHost) {
