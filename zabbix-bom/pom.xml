@@ -38,6 +38,11 @@
 				<artifactId>zabbix-spring-boot-autoconfigure</artifactId>
 				<version>${zabbix.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>cn.bromine0x23.zabbix</groupId>
+				<artifactId>zabbix-spring-boot-starter</artifactId>
+				<version>${zabbix.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
