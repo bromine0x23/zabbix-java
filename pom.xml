@@ -6,7 +6,7 @@
 
 	<groupId>cn.bromine0x23.zabbix</groupId>
 	<artifactId>zabbix-build</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>Zabbix Build</name>
@@ -30,8 +30,9 @@
 	<modules>
 		<module>zabbix-sender</module>
 		<module>zabbix-protocol</module>
-		<module>zabbix-autoconfigure</module>
+		<module>zabbix-spring-boot-autoconfigure</module>
 		<module>zabbix-bom</module>
+		<module>zabbix-spring-boot-starter</module>
 	</modules>
 
 	<properties>
@@ -69,7 +70,7 @@
 			</dependency>
 			<dependency>
 				<groupId>cn.bromine0x23.zabbix</groupId>
-				<artifactId>zabbix-autoconfigure</artifactId>
+				<artifactId>zabbix-spring-boot-autoconfigure</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

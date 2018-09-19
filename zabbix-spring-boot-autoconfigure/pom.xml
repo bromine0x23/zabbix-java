@@ -11,10 +11,10 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>zabbix-autoconfigure</artifactId>
+	<artifactId>zabbix-spring-boot-autoconfigure</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Zabbix Autoconfigure</name>
+	<name>Zabbix Spring Boot Autoconfigure</name>
 
 	<dependencies>
 		<dependency>

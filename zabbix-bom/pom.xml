@@ -35,7 +35,7 @@
 			</dependency>
 			<dependency>
 				<groupId>cn.bromine0x23.zabbix</groupId>
-				<artifactId>zabbix-autoconfigure</artifactId>
+				<artifactId>zabbix-spring-boot-autoconfigure</artifactId>
 				<version>${zabbix.version}</version>
 			</dependency>
 		</dependencies>
