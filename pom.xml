@@ -29,6 +29,7 @@
 		<module>zabbix-sender</module>
 		<module>zabbix-protocol</module>
 		<module>zabbix-autoconfigure</module>
+		<module>zabbix-bom</module>
 	</modules>
 
 	<properties>
@@ -47,6 +48,7 @@
 		<slf4j.version>1.7.25</slf4j.version>
 		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
 
+		<flatten-maven-plugin.version>1.0.1</flatten-maven-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
 	</properties>
@@ -68,7 +70,6 @@
 				<artifactId>zabbix-autoconfigure</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
 
 			<!-- https://mvnrepository.com/artifact/junit/junit -->
 			<dependency>
@@ -148,6 +149,11 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${maven-javadoc-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>flatten-maven-plugin</artifactId>
+					<version>${flatten-maven-plugin.version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -186,5 +192,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
