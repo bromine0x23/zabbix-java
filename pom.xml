@@ -9,6 +9,8 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<name>Zabbix Build</name>
+
 	<developers>
 		<developer>
 			<id>Bromine0x23</id>
