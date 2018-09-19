@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.bromine0x23.zabbix.autoconfigure.ZabbixAutoConfiguration,\
+cn.bromine0x23.zabbix.autoconfigure.sender.ZabbixSenderAutoConfiguration

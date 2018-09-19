@@ -28,6 +28,7 @@
 	<modules>
 		<module>zabbix-sender</module>
 		<module>zabbix-protocol</module>
+		<module>zabbix-autoconfigure</module>
 	</modules>
 
 	<properties>
@@ -44,6 +45,7 @@
 		<junit.version>4.12</junit.version>
 		<netty.version>4.1.28.Final</netty.version>
 		<slf4j.version>1.7.25</slf4j.version>
+		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
 
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
@@ -61,6 +63,12 @@
 				<artifactId>zabbix-sender</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>cn.bromine0x23.zabbix</groupId>
+				<artifactId>zabbix-autoconfigure</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 
 			<!-- https://mvnrepository.com/artifact/junit/junit -->
 			<dependency>
@@ -104,6 +112,14 @@
 				<groupId>com.fasterxml.jackson</groupId>
 				<artifactId>jackson-bom</artifactId>
 				<version>${jackson.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

@@ -1,0 +1,79 @@
+{
+	"properties": [
+		{
+			"name": "signature.card-manager.map.keys",
+			"type": "java.util.Map<java.lang.String,java.lang.String>",
+			"description": "通行证ID-密钥对列表."
+		},
+		{
+			"name": "signature.turnstile.signature-in-header.names.signature",
+			"type": "java.lang.String",
+			"description": "签名HTTP头字段."
+		},
+		{
+			"name": "signature.turnstile.signature-in-header.expired-in",
+			"type": "java.time.Duration",
+			"description": "过期时间."
+		},
+		{
+			"name": "signature.turnstile.signature-in-header.use-nonce",
+			"type": "java.lang.Boolean",
+			"description": "是否使用随机字符串字段."
+		},
+		{
+			"name": "signature.turnstile.signature-in-header.use-timestamp",
+			"type": "java.lang.Boolean",
+			"description": "是否使用时间戳字段."
+		},
+		{
+			"name": "signature.turnstile.signature-in-header.names.card-id",
+			"type": "java.lang.String",
+			"description": "通行证ID HTTP头字段."
+		},
+		{
+			"name": "signature.turnstile.signature-in-header.names.timestamp",
+			"type": "java.lang.String",
+			"description": "时间戳HTTP头字段."
+		},
+		{
+			"name": "signature.turnstile.signature-in-header.names.nonce",
+			"type": "java.lang.String",
+			"description": "随机字符串HTTP头字段."
+		},
+		{
+			"name": "signature.turnstile.signature-in-parameter.expired-in",
+			"type": "java.time.Duration",
+			"description": "过期时间."
+		},
+		{
+			"name": "signature.turnstile.signature-in-parameter.use-nonce",
+			"type": "java.lang.Boolean",
+			"description": "是否使用随机字符串参数."
+		},
+		{
+			"name": "signature.turnstile.signature-in-parameter.use-timestamp",
+			"type": "java.lang.Boolean",
+			"description": "是否使用时间戳参数."
+		},
+		{
+			"name": "signature.turnstile.signature-in-parameter.names.signature",
+			"type": "java.lang.String",
+			"description": "签名参数."
+		},
+		{
+			"name": "signature.turnstile.signature-in-parameter.names.card-id",
+			"type": "java.lang.String",
+			"description": "通行证ID参数."
+		},
+		{
+			"name": "signature.turnstile.signature-in-parameter.names.timestamp",
+			"type": "java.lang.String",
+			"description": "时间戳参数."
+		},
+		{
+			"name": "signature.turnstile.signature-in-parameter.names.nonce",
+			"type": "java.lang.String",
+			"description": "随机字符串参数."
+		}
+	]
+}
