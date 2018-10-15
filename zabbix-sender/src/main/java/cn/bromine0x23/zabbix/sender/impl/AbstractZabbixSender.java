@@ -9,7 +9,7 @@ import lombok.Getter;
 import static cn.bromine0x23.zabbix.sender.ZabbixSenderConstants.*;
 
 /**
- * Created on 18/9/19.
+ * AbstractZabbixSender
  *
  * @author <a href="mailto:bromine0x23@163.com">Bromine0x23</a>
  */

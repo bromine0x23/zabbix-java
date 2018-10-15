@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * Zabbix Sender 实现
+ * Zabbix Sender Socket实现
  *
  * @author <a href="mailto:bromine0x23@163.com">Bromine0x23</a>
  */
