@@ -6,7 +6,7 @@
 
 	<groupId>cn.bromine0x23.zabbix</groupId>
 	<artifactId>zabbix-build</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Zabbix Build</name>
