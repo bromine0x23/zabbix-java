@@ -24,3 +24,5 @@ nbdist/
 .nb-gradle/
 
 logs/
+
+.flattened-pom.xml
