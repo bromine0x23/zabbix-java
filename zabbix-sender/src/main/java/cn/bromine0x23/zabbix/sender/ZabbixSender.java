@@ -5,6 +5,7 @@ import cn.bromine0x23.zabbix.sender.domain.ZabbixSenderResponse;
 import cn.bromine0x23.zabbix.sender.impl.NettyZabbixSender;
 import cn.bromine0x23.zabbix.sender.impl.SocketZabbixSender;
 
+import java.io.IOException;
 import java.time.Duration;
 
 import static cn.bromine0x23.zabbix.sender.ZabbixSenderConstants.*;
@@ -45,11 +46,12 @@ public interface ZabbixSender {
 	 * @param request 请求
 	 * @param timeout 超时时间
 	 * @return 响应
-	 * @throws Exception 异常
+	 * @throws IOException          IO异常
+	 * @throws InterruptedException 异步进程被中断
 	 */
-	ZabbixSenderResponse send(ZabbixSenderRequest request, Duration timeout) throws Exception;
+	ZabbixSenderResponse send(ZabbixSenderRequest request, Duration timeout) throws IOException, InterruptedException;
 
-	default ZabbixSenderResponse send(ZabbixSenderRequest request) throws Exception {
+	default ZabbixSenderResponse send(ZabbixSenderRequest request) throws IOException, InterruptedException {
 		return send(request, DEFAULT_TIMEOUT);
 	}
 
