@@ -43,17 +43,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<logback.version>1.2.3</logback.version>
-		<lombok.version>1.18.2</lombok.version>
-		<jackson.version>2.9.6</jackson.version>
+		<jackson.version>2.9.9</jackson.version>
 		<junit.version>4.12</junit.version>
-		<netty.version>4.1.28.Final</netty.version>
+		<logback.version>1.2.3</logback.version>
+		<lombok.version>1.18.8</lombok.version>
+		<netty.version>4.1.36.Final</netty.version>
 		<slf4j.version>1.7.25</slf4j.version>
-		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
+		<spring-boot.version>2.1.5.RELEASE</spring-boot.version>
 
-		<flatten-maven-plugin.version>1.0.1</flatten-maven-plugin.version>
+		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+		<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -79,27 +80,6 @@
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- https://mvnrepository.com/artifact/junit/junit -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>${lombok.version}</version>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-access</artifactId>
@@ -115,8 +95,22 @@
 				<artifactId>logback-core</artifactId>
 				<version>${logback.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
 
-			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom -->
 			<dependency>
 				<groupId>com.fasterxml.jackson</groupId>
 				<artifactId>jackson-bom</artifactId>
@@ -124,20 +118,17 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/io.netty/netty-bom -->
 			<dependency>
 				<groupId>io.netty</groupId>
 				<artifactId>netty-bom</artifactId>
 				<version>${netty.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -162,8 +153,19 @@
 					<artifactId>flatten-maven-plugin</artifactId>
 					<version>${flatten-maven-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${versions-maven-plugin.version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 
 	<profiles>
