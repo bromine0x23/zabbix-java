@@ -11,6 +11,7 @@
 
 	<name>Zabbix Build</name>
 
+	<inceptionYear>2018</inceptionYear>
 	<developers>
 		<developer>
 			<id>Bromine0x23</id>
@@ -52,9 +53,14 @@
 		<spring-boot.version>2.1.5.RELEASE</spring-boot.version>
 
 		<flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
+		<license-maven-plugin.version>3.0</license-maven-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
 		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+
+		<license.name>WTFPL</license.name>
+		<license.owner>Bromine0x23</license.owner>
+		<license.email>bromine0x23@163.com</license.email>
 	</properties>
 
 	<dependencyManagement>
@@ -149,6 +155,11 @@
 					<version>${maven-javadoc-plugin.version}</version>
 				</plugin>
 				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>${license-maven-plugin.version}</version>
+				</plugin>
+				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>flatten-maven-plugin</artifactId>
 					<version>${flatten-maven-plugin.version}</version>
@@ -164,6 +175,38 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>com.mycila</groupId>
+						<artifactId>license-maven-plugin-git</artifactId>
+						<version>${license-maven-plugin.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<header>licenses/${license.name}.txt</header>
+					<failIfMissing>true</failIfMissing>
+					<strictCheck>true</strictCheck>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<properties>
+						<license.owner>${license.owner}</license.owner>
+						<license.email>${license.email}</license.email>
+					</properties>
+					<mapping>
+						<java>SLASHSTAR_STYLE</java>
+					</mapping>
+					<includes>
+						<include>src/*/java/**/*.java</include>
+					</includes>
+					<excludes>
+						<exclude>src/main/resources/**</exclude>
+						<exclude>src/test/resources/**</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
