@@ -45,7 +45,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<jackson.version>2.9.9</jackson.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<logback.version>1.2.3</logback.version>
 		<lombok.version>1.18.8</lombok.version>
 		<netty.version>4.1.36.Final</netty.version>
